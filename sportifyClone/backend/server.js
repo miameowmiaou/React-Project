@@ -18,11 +18,10 @@ app.get('/artists', async (req, res) => {
   }
 });
 
-app.post('/artist', async (req, res) => {
+app.post('/artists', async (req, res) => {
   try {
     const [results, fields] = await connection.query(
-      'INSERT INTO `artist` (`name`, `genre`) VALUES (?, ?);',
-      [req.body.name, req.body.genre]
+      'INSERT INTO `artist` (`name`) VALUES (?);', [req.body.name]
     );
     res.send(results);
   } catch (err) {
@@ -30,11 +29,11 @@ app.post('/artist', async (req, res) => {
   }
 })
 
-app.put('/artist/:id', async (req, res) => {
+app.put('/artists/:id', async (req, res) => {
   try {
     const [results, fields] = await connection.query(
-      'UPDATE `artist` SET `name` = ?, `genre` = ? WHERE `id` = ?;',
-      [req.body.name, req.body.genre, req.params.id]
+      'UPDATE `artist` SET `name` = ? WHERE `id` = ?;',
+      [req.body.name, req.params.id]
     );
     res.send(results);
   } catch (err) {
@@ -42,7 +41,7 @@ app.put('/artist/:id', async (req, res) => {
   }
 })
 
-app.delete('/artist/:id', async (req, res) => {
+app.delete('/artists/:id', async (req, res) => {
   try {
     const [results, fields] = await connection.query(
       'DELETE FROM `artist` WHERE `id` =?;',
