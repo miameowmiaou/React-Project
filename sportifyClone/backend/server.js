@@ -21,7 +21,7 @@ app.get('/artists', async (req, res) => {
 app.post('/artists', async (req, res) => {
   try {
     const [results, fields] = await connection.query(
-      'INSERT INTO `artist` (`name`) VALUES (?);', [req.body.name]
+      'INSERT INTO `artist` (`name`) VALUES (?);', [req.query.name]
     );
     res.send(results);
   } catch (err) {
@@ -33,7 +33,7 @@ app.put('/artists/:id', async (req, res) => {
   try {
     const [results, fields] = await connection.query(
       'UPDATE `artist` SET `name` = ? WHERE `id` = ?;',
-      [req.body.name, req.params.id]
+      [req.query.name, req.params.id]
     );
     res.send(results);
   } catch (err) {
